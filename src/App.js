@@ -18,6 +18,7 @@ function App() {
         boxShadow: '0 0 10px 4px #bfbfbf',
         borderRadius: 5,
         height: '90vh',
+        overflow: 'hidden',
       }}
     >
       <Title style={{ textAlign: 'center' }}>TODO APP with REDUX</Title>
