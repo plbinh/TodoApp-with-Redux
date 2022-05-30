@@ -1,24 +1,23 @@
 import { Col, Row, Input, Button, Select, Tag } from "antd";
-import Todo from "../Todo";
 import { useDispatch, useSelector } from "react-redux";
-// import { addTodo } from "../../redux/actions.js";
 import { v4 as idv4 } from "uuid";
 import { useRef, useState } from "react";
+
+// import { addTodo } from "../../redux/actions.js";
+import Todo from "../Todo";
 import { todoRemaningSelector } from "../../redux/selector";
-import todoListSlice from "./todoListSlice";
+import {addNewTodo} from "./todoListSlice";
 
 export default function TodoList() {
   const [todo, setTodo] = useState("");
   const [prioriry, setPrioriry] = useState("Medium");
   const inputTodoRef = useRef();
-
   const todoList = useSelector(todoRemaningSelector);
-
   const dispatch = useDispatch();
 
   const handleAdd = () => {
     dispatch(
-      todoListSlice.actions.addTodo({
+      addNewTodo({
         id: idv4(),
         name: todo,
         complete: false,
@@ -32,7 +31,6 @@ export default function TodoList() {
 
   return (
     <Row style={{ height: "calc(100% - 40px)" }}>
-      
       <Col span={24}>
         <Input.Group style={{ display: "flex" }} compact>
           <Input
@@ -62,7 +60,13 @@ export default function TodoList() {
       </Col>
       <Col span={24} style={{ height: "calc(100% - 40px)", overflowY: "auto" }}>
         {todoList.map((todo) => (
-          <Todo key={todo.id} id={todo.id} name={todo.name} prioriry={todo.prioriry} completed={todo.complete}/>
+          <Todo
+            key={todo.id}
+            id={todo.id}
+            name={todo.name}
+            prioriry={todo.prioriry}
+            completed={todo.complete}
+          />
         ))}
       </Col>
     </Row>
